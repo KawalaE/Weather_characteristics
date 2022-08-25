@@ -1,16 +1,28 @@
-# This is a sample Python script.
+import requests
+import json
+from time import time
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+latitude = 50.055375
+longitude = 19.92981
+
+with open('api_key.txt') as f:
+    API_KEY = f.readline()
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def get_data_from_server(lat: float, lon: float, api_key: str) -> json:
+    response = requests.get(f'https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}')
+    data = response.json()
+    return data
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+#print(json.dumps(request.json(), indent=4))
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+def extract_data_from_response(response_data: json):
+    temp = response_data["main"]["temp"] - 273.15 # convert from Kelvin to Celsius
+    pressure = response_data["main"]["pressure"]
+    humidity = response_data["main"]["humidity"]
+    current_time = time()
+    return current_time, temp, pressure, humidity
+
+
+print(extract_data_from_response(get_data_from_server(latitude, longitude, API_KEY)))
