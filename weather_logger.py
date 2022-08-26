@@ -3,7 +3,7 @@ import json
 import mysql.connector
 from time import time, sleep, gmtime
 
-starttime = time()
+start_time = time()
 db_name = "weatherdb"
 table_name = "report"
 
@@ -19,6 +19,7 @@ mydb = mysql.connector.connect(
   password=DB_PASS,
   database=db_name
 )
+
 dbcursor = mydb.cursor()
 
 
@@ -63,7 +64,7 @@ def start_collecting_data():
             save_to_db(str(city), ct, t, p, h)
 
         # Wait 900s (15min). A bit more accurate than just sleep(900)
-        sleep(900.0 - ((time() - starttime) % 900.0))
+        sleep(900.0 - ((time() - start_time) % 900.0))
 
 
 def get_data_from_server(lat: float, lon: float, api_key: str) -> json:
@@ -80,8 +81,8 @@ def extract_data_from_response(response_data: json):
     return int(current_time), int(temp*100), pressure, humidity
 
 
-def show_time_stamp(currenttime: int):
-    t = gmtime(currenttime)
+def show_time_stamp(current_time: int):
+    t = gmtime(current_time)
     print(f"{t.tm_mday}.{t.tm_mon}.{t.tm_year} / {t.tm_hour}:{t.tm_min} Database commit success!")
 
 
