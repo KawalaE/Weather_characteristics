@@ -6,7 +6,7 @@ Simple mini project in python created for future developement.
 weather_logger.py script reads current weather report data from following site: https://openweathermap.org, via
 API, also is responsible for creating relational database in MySQL. Data from the site is formated and appended to the database every 15 minutes.
 
-https://www.findlatitudeandlongitude.com - is used to get the longitude and latitude of particular cities: Poznan, Cracow, Warsaw and Wroclaw. 
+https://www.findlatitudeandlongitude.com - it's used to get the longitude and latitude of particular cities: Poznan, Cracow, Warsaw and Wroclaw. 
 
 plot_data.py script uses database created in weather_logger.py to plot characteristics via matplotlib module.
 
